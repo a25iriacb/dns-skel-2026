@@ -1,79 +1,38 @@
 services:
 
-  nsraiz:
+  mandalorian:
     build: dnsserver
-    hostname: raiz    
-    networks:
-      rededns:
-        ipv4_address: 192.168.20.8
+    hostname: mandalorian
+    command: -g -4
     volumes:
-      - ./raiz/named.conf.options:/etc/bind/named.conf.options
-      - ./raiz/named.conf.local:/etc/bind/named.conf.local
-      - ./raiz/db.raiz:/etc/bind/db.raiz
+      - ./mandalorian/named.conf.options:/etc/bind/named.conf.options
+      - ./mandalorian/named.conf:/etc/bind/named.conf
 
-  nslan:
-    build: dnsserver
-    hostname: nslan   
-    volumes:
-      - ./lan/named.conf.options:/etc/bind/named.conf.options
-      - ./lan/named.conf.local:/etc/bind/named.conf.local
-      - ./lan/db.lan:/etc/bind/db.lan
-      - ./dnsserver/root.hints:/usr/share/dns/root.hints
     networks:
       rededns:
         ipv4_address: 192.168.20.9
+
   darthvader:
     build: dnsserver
     hostname: darthvader
     command: -g -4
     volumes:
-      - ./darthvader/named.conf.options:/etc/bind/named.conf.options
       - ./darthvader/named.conf.local:/etc/bind/named.conf.local
-      - ./darthvader/zonas:/var/cache/bind
-      - ./dnsserver/root.hints:/usr/share/dns/root.hints
-      - ./logs:/logs
+
     networks:
       rededns:
         ipv4_address: 192.168.20.10
 
-  darthsidious:
-    build: dnsserver
-    hostname: darthsidious
-    depends_on:
-      - darthvader
-    volumes:
-      - ./darthsidious/named.conf.options:/etc/bind/named.conf.options
-      - ./darthsidious/named.conf.local:/etc/bind/named.conf.local
-      - ./dnsserver/root.hints:/usr/share/dns/root.hints      
-    networks:
-      rededns:
-        ipv4_address: 192.168.20.11        
-  delegado:
-    build: dnsserver
-    hostname: delegado
-    depends_on:
-      - darthvader    
-    volumes:
-      - ./delegado/named.conf.options:/etc/bind/named.conf.options
-      - ./delegado/named.conf.local:/etc/bind/named.conf.local
-      - ./delegado/db.imperio.starwars.lan:/etc/bind/db.imperio.starwars.lan
-      - ./dnsserver/root.hints:/usr/share/dns/root.hints
-    networks:
-      rededns:
-        ipv4_address: 192.168.20.50        
+    
   cliente:
     build: cliente
     hostname: cliente1
     networks:
       rededns:
         ipv4_address: 192.168.20.110
-    volumes:
-      - ./cliente/rndc.conf:/etc/bind/rndc.conf
-      - ./cliente/chave.key:/etc/bind/chave.key
-      - ./cliente/actualiza.txt:/etc/bind/actualiza.txt
+
     dns: 
     - 192.168.20.10
-    - 192.168.20.11
 
 networks:
   rededns:

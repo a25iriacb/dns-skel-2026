@@ -1,0 +1,4 @@
+zone "starwars.lan" {
+    type primary;
+    file "db.starwars.lan";
+};
