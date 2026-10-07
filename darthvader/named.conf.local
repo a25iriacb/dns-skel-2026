@@ -1,4 +1,9 @@
 zone "starwars.lan" {
-    type primary;
-    file "db.starwars.lan";
+    type master;
+    file "/etc/bind/zonas/db.starwars.lan";
+};
+
+zone "20.168.192.in-addr.arpa" {
+    type master;
+    file "/etc/bind/zonas/db.192.168.20";
 };

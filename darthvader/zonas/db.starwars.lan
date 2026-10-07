@@ -1,0 +1,23 @@
+$TTL    604800
+@       IN      SOA     darthsidious.starwars.lan. admin.starwars.lan. (
+                              2         ; Serial
+                         604800         ; Refresh
+                          86400         ; Retry
+                        2419200         ; Expire
+                         604800 )       ; Negative Cache TTL
+;
+@       IN      NS      darthsidious.starwars.lan.
+@       IN      MX  10  c3p0.starwars.lan.
+
+darthvader     IN      A       192.168.20.10
+skywalker      IN      A       192.168.20.101
+skywalker      IN      A       192.168.20.111
+luke           IN      A       192.168.20.22
+darthsidious   IN      A       192.168.20.11
+yoda           IN      A       192.168.20.24
+yoda           IN      A       192.168.20.25
+c3p0           IN      A       192.168.20.26
+
+palpatine      IN      CNAME   darthsidious.starwars.lan.
+lenda          IN      TXT     "Que a forza te acompanhe"
+
