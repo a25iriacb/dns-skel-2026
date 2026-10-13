@@ -37,6 +37,18 @@ services:
       - ./mandalorian/named.conf.options:/etc/bind/named.conf.options
       - ./mandalorian/named.conf:/etc/bind/named.conf
 
+  darthsidious:
+    build: dnsserver
+    hostname: darthsidious
+    depends_on:
+      - darthvader
+    volumes:
+      - ./darthsidious/named.conf.local:/etc/bind/named.conf.local
+    networks:
+      rededns:
+        ipv4_address: 192.168.20.11
+
+
 networks:
   rededns:
     ipam:
